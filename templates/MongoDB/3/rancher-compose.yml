@@ -43,7 +43,7 @@ catalog:
       required: true
       default: "3"
 services:
-  mongo-cluster:
+  mongocluster:
     scale: ${mongo_scale}
     retain_ip: true
     metadata:
