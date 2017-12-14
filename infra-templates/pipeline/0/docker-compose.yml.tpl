@@ -1,7 +1,13 @@
+{{- $jenkinsMasterImage:="jenkins/jenkins:2.60.2-alpine"}}
+{{- $jenkinsBootImage:="reg.cnrancher.com/pipeline/jenkins_home:2.60.2_0"}}
+{{- $jenkinsSlaveImage:="reg.cnrancher.com/pipeline/jenkins-slave"}}
+{{- $pipelineServerImage:="reg.cnrancher.com/rancher/pipeline:0.1.5"}}
+{{- $pipelineUIImage:="reg.cnrancher.com/pipeline/ui:v1.0"}}
+
 version: '2'
 services:
   jenkins-master:
-    image: jenkins/jenkins:2.60.2-alpine
+    image: {{$jenkinsMasterImage}}
     {{- if ne .Values.JENKINS_PORT "" }}
     ports:
       - ${JENKINS_PORT}:8080
@@ -22,13 +28,13 @@ services:
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
   {{- end }}
   jenkins-boot:
-    image: reg.cnrancher.com/pipeline/jenkins_home:2.60.2_0
+    image: {{$jenkinsBootImage}}
     volumes:
       - jenkins_home:/var/jenkins_home
     labels:
       io.rancher.container.start_once: true
   jenkins-slave:
-    image: reg.cnrancher.com/pipeline/jenkins-slave
+    image: {{$jenkinsSlaveImage}}
     restart: always
     links:
       - jenkins-master
@@ -49,7 +55,7 @@ services:
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
   {{- end }}
   pipeline-server:
-    image: reg.cnrancher.com/rancher/pipeline:0.1.5
+    image: {{$pipelineServerImage}}
     restart: always
     links:
       - jenkins-master
@@ -65,14 +71,13 @@ services:
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
   {{- end }}
   pipeline-ui:
-    image: reg.cnrancher.com/pipeline/ui:v1.0
+    image: {{$pipelineUIImage}}
     restart: always
     labels:
       io.rancher.container.create_agent: true
       io.rancher.container.agent.role: environment
       io.rancher.container.pull_image: always
       io.rancher.service.ui_link.label: "{\"en-us\":\"PIPELINE\",\"zh-hans\":\"流水线\"}"
-      io.rancher.service.ui_link.port: 8000
   {{- if ne .Values.HOST_LABEL "" }}
       io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
   {{- end }}

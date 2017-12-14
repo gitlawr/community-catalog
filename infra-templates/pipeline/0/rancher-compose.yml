@@ -1,9 +1,9 @@
 version: '2'
 catalog:
-  name: CICD
-  version: 0.1.5
-  description: "Rancher CICD"
-  upgrade_from: "<=0.4.0"
+  name: Pipeline
+  version: 1.0.0
+  minimum_rancher_version: 1.6.13-rc2
+  description: "Rancher Pipeline"
   questions:
     - variable: SLAVES
       type: "int"
