@@ -1,17 +1,13 @@
 {{- $jenkinsMasterImage:="jenkins/jenkins:2.60.2-alpine"}}
-{{- $jenkinsBootImage:="reg.cnrancher.com/pipeline/jenkins_home:2.60.2_0"}}
-{{- $jenkinsSlaveImage:="reg.cnrancher.com/pipeline/jenkins-slave"}}
-{{- $pipelineServerImage:="reg.cnrancher.com/rancher/pipeline:0.1.5"}}
-{{- $pipelineUIImage:="reg.cnrancher.com/pipeline/ui:v1.0"}}
+{{- $jenkinsBootImage:="lawr/jenkins-boot:v0.1.0"}}
+{{- $jenkinsSlaveImage:="rancher/pipeline-jenkins-slave:v0.1.0"}}
+{{- $pipelineServerImage:="rancher/pipeline:v0.1.0"}}
+{{- $pipelineUIImage:="rancher/pipeline-ui:v0.1.0"}}
 
 version: '2'
 services:
   jenkins-master:
     image: {{$jenkinsMasterImage}}
-    {{- if ne .Values.JENKINS_PORT "" }}
-    ports:
-      - ${JENKINS_PORT}:8080
-    {{- end }}
     restart: always
     environment:
       - JENKINS_SLAVE_AGENT_PORT=50000

@@ -37,4 +37,4 @@ Click `Launch`.
 
 After service is up, access Pipeline UI on top navigation bar of Rancher UI.
 
-See [Pipeline documentation](https://github.com/rancher/pipeline/blob/docs/docs/README.md) for detail information.
+See [Pipeline documentation](https://github.com/rancher/pipeline) for detail information.

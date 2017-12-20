@@ -1,8 +1,8 @@
 version: '2'
 catalog:
   name: Pipeline
-  version: 1.0.0
-  minimum_rancher_version: 1.6.13-rc2
+  version: v0.1.0
+  # minimum_rancher_version: 1.6.13-rc2
   description: "Rancher Pipeline"
   questions:
     - variable: SLAVES
@@ -15,10 +15,6 @@ catalog:
       default: "2"
       label: "# of executors"
       description: "How many executors on a jenkins slave"
-    - variable: JENKINS_PORT
-      type: "int"
-      label: "Jenkins Public Port"
-      description: "Public port for Jenkins master's http port.for DEBUG purpose,remove when release."
     - variable: HOST_LABEL
       label: "Host with Label to put pipeline components on"
       description: |
