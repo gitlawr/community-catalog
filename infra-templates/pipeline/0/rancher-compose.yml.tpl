@@ -25,8 +25,8 @@ catalog:
       type: "string"
 services:
   jenkins-slave:
-#{{- if ge .Values.SLAVES "1" }}
+{{- if ge .Values.SLAVES "1" }}
     scale: ${SLAVES}
-#{{- else }}
+{{- else }}
     scale: 1
-#{{- end }}
+{{- end }}
